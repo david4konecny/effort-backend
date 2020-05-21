@@ -13,7 +13,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("review")
+    @GetMapping("/reviews")
     public List<Review> getAll() {
         return reviewService.getAll();
     }

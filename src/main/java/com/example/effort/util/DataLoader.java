@@ -1,5 +1,7 @@
 package com.example.effort.util;
 
+import com.example.effort.category.Category;
+import com.example.effort.category.CategoryService;
 import com.example.effort.review.Review;
 import com.example.effort.review.ReviewService;
 import com.example.effort.task.Task;
@@ -17,16 +19,19 @@ import java.util.List;
 public class DataLoader implements ApplicationRunner {
     private final TaskService taskService;
     private final ReviewService reviewService;
+    private final CategoryService categoryService;
 
-    public DataLoader(TaskService taskService, ReviewService reviewService) {
+    public DataLoader(TaskService taskService, ReviewService reviewService, CategoryService categoryService) {
         this.taskService = taskService;
         this.reviewService = reviewService;
+        this.categoryService = categoryService;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         addSampleTasks();
         addSampleReviews();
+        addSampleCategories();
     }
 
     private void addSampleTasks() {
@@ -45,5 +50,14 @@ public class DataLoader implements ApplicationRunner {
                 new Review("Had a blast today.", LocalDate.now(), 4)
         );
         reviewService.addAll(reviews);
+    }
+
+    private void addSampleCategories() {
+        List<Category> categories = new ArrayList<>();
+        Collections.addAll(categories,
+                new Category("programming", "blue"),
+                new Category("writing", "green")
+        );
+        categoryService.insertAll(categories);
     }
 }

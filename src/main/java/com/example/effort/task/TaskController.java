@@ -13,7 +13,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/task")
+    @GetMapping("/tasks")
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
