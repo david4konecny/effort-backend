@@ -37,6 +37,7 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTasks() {
         List<Task> tasks = new ArrayList<>();
         Collections.addAll(tasks,
+                new Task(LocalDate.now().minusDays(1L), "watch a movie"),
                 new Task(LocalDate.now(), "write a report"),
                 new Task(LocalDate.now(), "clean dog")
         );

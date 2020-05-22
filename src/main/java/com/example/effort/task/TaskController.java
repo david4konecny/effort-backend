@@ -1,7 +1,6 @@
 package com.example.effort.task;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,8 +13,16 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<Task> getTasks(@RequestParam(required = false) String date) {
+        if (date == null)
+            return taskService.getAllTasks();
+        else
+            return taskService.getTasksByDate(date);
+    }
+
+    @DeleteMapping("/tasks/{id}")
+    public void delete(@PathVariable Long id) {
+        taskService.delete(id);
     }
 
 }
