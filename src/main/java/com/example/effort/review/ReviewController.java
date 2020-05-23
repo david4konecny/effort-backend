@@ -1,6 +1,7 @@
 package com.example.effort.review;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,8 +15,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public List<Review> getAll() {
-        return reviewService.getAll();
+    public List<Review> getReviews(@RequestParam(required = false) String date) {
+        if (date == null)
+            return reviewService.getAll();
+        else
+            return reviewService.getReviewsByDate(date);
     }
 
 }

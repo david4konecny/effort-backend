@@ -1,5 +1,7 @@
 package com.example.effort.review;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +13,7 @@ public class Review {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String review;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Integer rating;
 
