@@ -20,6 +20,11 @@ public class TaskController {
             return taskService.getTasksByDate(date);
     }
 
+    @PostMapping("/tasks")
+    public Task addTask(@RequestBody Task task) {
+        return taskService.add(task);
+    }
+
     @DeleteMapping("/tasks/{id}")
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
