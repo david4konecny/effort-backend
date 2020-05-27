@@ -1,11 +1,10 @@
 package com.example.effort.time;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,6 +16,8 @@ public class TimeSession {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    @Transient @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long duration;
 
     public TimeSession() {
     }
@@ -57,5 +58,9 @@ public class TimeSession {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public Long getDuration() {
+        return Duration.between(startTime, endTime).toMillis();
     }
 }

@@ -1,8 +1,6 @@
 package com.example.effort.time;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +15,16 @@ public class TimeController {
     @GetMapping("/time")
     public List<TimeSession> getAllByDate(@RequestParam String date) {
         return timeService.getAllByDate(date);
+    }
+
+    @PostMapping("/time")
+    public TimeSession insert(@RequestBody TimeSession timeEntry) {
+        return timeService.insert(timeEntry);
+    }
+
+    @PutMapping("/time")
+    public TimeSession edit(@RequestBody TimeSession timeEntry) {
+        return timeService.insert(timeEntry);
     }
 
 }

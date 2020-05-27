@@ -23,4 +23,14 @@ public class TimeServiceImpl implements TimeService {
     public void insertAll(List<TimeSession> timeEntries) {
         timeRepository.saveAll(timeEntries);
     }
+
+    @Override
+    public TimeSession insert(TimeSession timeEntry) {
+        return timeRepository.save(timeEntry);
+    }
+
+    @Override
+    public TimeSession edit(TimeSession timeEntry) {
+        return timeRepository.save(timeEntry);
+    }
 }
