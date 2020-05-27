@@ -6,11 +6,14 @@ import com.example.effort.review.Review;
 import com.example.effort.review.ReviewService;
 import com.example.effort.task.Task;
 import com.example.effort.task.TaskService;
+import com.example.effort.time.TimeService;
+import com.example.effort.time.TimeSession;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,11 +23,13 @@ public class DataLoader implements ApplicationRunner {
     private final TaskService taskService;
     private final ReviewService reviewService;
     private final CategoryService categoryService;
+    private final TimeService timeService;
 
-    public DataLoader(TaskService taskService, ReviewService reviewService, CategoryService categoryService) {
+    public DataLoader(TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
         this.taskService = taskService;
         this.reviewService = reviewService;
         this.categoryService = categoryService;
+        this.timeService = timeService;
     }
 
     @Override
@@ -32,6 +37,7 @@ public class DataLoader implements ApplicationRunner {
         addSampleTasks();
         addSampleReviews();
         addSampleCategories();
+        addSampleTimeEntries();
     }
 
     private void addSampleTasks() {
@@ -61,4 +67,15 @@ public class DataLoader implements ApplicationRunner {
         );
         categoryService.insertAll(categories);
     }
+
+    private void addSampleTimeEntries() {
+        List<TimeSession> timeEntries = new ArrayList<>();
+        Collections.addAll(timeEntries,
+                new TimeSession(LocalDate.now().minusDays(1L), LocalTime.of(8, 0), LocalTime.of(9,0)),
+                new TimeSession(LocalDate.now(), LocalTime.of(6, 0), LocalTime.of(6,30)),
+                new TimeSession(LocalDate.now(), LocalTime.of(7, 0), LocalTime.of(8,0))
+        );
+        timeService.insertAll(timeEntries);
+    }
+
 }

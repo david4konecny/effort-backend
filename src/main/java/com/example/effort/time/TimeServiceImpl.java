@@ -1,0 +1,26 @@
+package com.example.effort.time;
+
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Service
+public class TimeServiceImpl implements TimeService {
+    private final TimeRepository timeRepository;
+
+    public TimeServiceImpl(TimeRepository timeRepository) {
+        this.timeRepository = timeRepository;
+    }
+
+    @Override
+    public List<TimeSession> getAllByDate(String date) {
+        LocalDate d = LocalDate.parse(date);
+        return timeRepository.findByDate(d);
+    }
+
+    @Override
+    public void insertAll(List<TimeSession> timeEntries) {
+        timeRepository.saveAll(timeEntries);
+    }
+}
