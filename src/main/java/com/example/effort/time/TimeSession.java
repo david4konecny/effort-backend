@@ -14,15 +14,15 @@ public class TimeSession {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private Integer startTime;
+    private Integer endTime;
     @Transient @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long duration;
+    private Integer duration;
 
     public TimeSession() {
     }
 
-    public TimeSession(LocalDate date, LocalTime startTime, LocalTime endTime) {
+    public TimeSession(LocalDate date, Integer startTime, Integer endTime) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -44,23 +44,23 @@ public class TimeSession {
         this.date = date;
     }
 
-    public LocalTime getStartTime() {
+    public Integer getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(Integer startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(Integer endTime) {
         this.endTime = endTime;
     }
 
-    public Long getDuration() {
-        return Duration.between(startTime, endTime).toMillis();
+    public Integer getDuration() {
+        return endTime - startTime;
     }
 }

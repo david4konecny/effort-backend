@@ -71,9 +71,9 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTimeEntries() {
         List<TimeSession> timeEntries = new ArrayList<>();
         Collections.addAll(timeEntries,
-                new TimeSession(LocalDate.now().minusDays(1L), LocalTime.of(8, 0), LocalTime.of(9,0)),
-                new TimeSession(LocalDate.now(), LocalTime.of(6, 0), LocalTime.of(6,30)),
-                new TimeSession(LocalDate.now(), LocalTime.of(7, 0), LocalTime.of(8,0))
+                new TimeSession(LocalDate.now().minusDays(1L), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
+                new TimeSession(LocalDate.now(), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
+                new TimeSession(LocalDate.now(), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
         );
         timeService.insertAll(timeEntries);
     }
