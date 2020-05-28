@@ -33,4 +33,11 @@ public class TimeServiceImpl implements TimeService {
     public TimeSession edit(TimeSession timeEntry) {
         return timeRepository.save(timeEntry);
     }
+
+    @Override
+    public Integer getTotalDuration(String date) {
+        LocalDate d = LocalDate.parse(date);
+        List<TimeSession> entries = timeRepository.findByDate(d);
+        return entries.stream().mapToInt(TimeSession::getDuration).sum();
+    }
 }

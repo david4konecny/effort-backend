@@ -27,4 +27,9 @@ public class TimeController {
         return timeService.insert(timeEntry);
     }
 
+    @GetMapping("/time/total")
+    public Integer totalDurationByDate(@RequestParam String date) {
+        return timeService.getTotalDuration(date);
+    }
+
 }
