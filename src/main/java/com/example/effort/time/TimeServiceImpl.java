@@ -35,6 +35,11 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        timeRepository.deleteById(id);
+    }
+
+    @Override
     public Integer getTotalDuration(String date) {
         LocalDate d = LocalDate.parse(date);
         List<TimeSession> entries = timeRepository.findByDate(d);

@@ -27,6 +27,11 @@ public class TimeController {
         return timeService.insert(timeEntry);
     }
 
+    @DeleteMapping("/time/{id}")
+    public void delete(@PathVariable Long id) {
+        timeService.deleteById(id);
+    }
+
     @GetMapping("/time/total")
     public Integer totalDurationByDate(@RequestParam String date) {
         return timeService.getTotalDuration(date);

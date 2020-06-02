@@ -8,6 +8,7 @@ public interface TimeService {
     void insertAll(List<TimeSession> timeEntries);
     TimeSession insert(TimeSession timeEntry);
     TimeSession edit(TimeSession timeEntry);
+    void deleteById(Long id);
     Integer getTotalDuration(String date);
 
 }
