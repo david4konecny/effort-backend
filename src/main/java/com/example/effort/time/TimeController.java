@@ -2,7 +2,9 @@ package com.example.effort.time;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TimeController {
@@ -35,6 +37,11 @@ public class TimeController {
     @GetMapping("/time/total")
     public Integer totalDurationByDate(@RequestParam String date) {
         return timeService.getTotalDuration(date);
+    }
+
+    @GetMapping("/time/total/month")
+    public Map<LocalDate, Long> monthStats(@RequestParam String date) {
+        return timeService.getTotalByMonth(date);
     }
 
 }
