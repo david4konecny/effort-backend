@@ -1,8 +1,6 @@
 package com.example.effort.review;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,21 @@ public class ReviewController {
             return reviewService.getAll();
         else
             return reviewService.getReviewsByDate(date);
+    }
+
+    @PostMapping("/review")
+    public Review insert(@RequestBody Review review) {
+        return reviewService.insert(review);
+    }
+
+    @PutMapping("/review")
+    public Review edit(@RequestBody Review review) {
+        return reviewService.edit(review);
+    }
+
+    @DeleteMapping("/review/{id}")
+    public void deleteById(@PathVariable Long id) {
+        reviewService.deleteById(id);
     }
 
 }
