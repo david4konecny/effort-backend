@@ -3,7 +3,6 @@ package com.example.effort.time;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,8 +55,8 @@ public class TimeServiceImpl implements TimeService {
         int month = Integer.parseInt(date.substring(5));
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.plusMonths(1L).minusDays(1L);
-        List<Object[]> res = timeRepository.getTotalByDate(startDate, endDate);
-        res.forEach(item -> out.put((LocalDate) item[0], (Long) item[1]));
+        List<DateAndDurationView> res = timeRepository.getTotalByDate(startDate, endDate);
+        res.forEach(item -> out.put(item.getDate(), item.getTotal()));
         for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
             LocalDate next = LocalDate.of(year, month, i);
             if (!out.containsKey(next)) {
