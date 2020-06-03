@@ -10,5 +10,6 @@ public interface TaskService {
     Task add(Task task);
     Task edit(Task task);
     void delete(Long id);
+    List<DateAndTasksView> getTaskSummariesByDateForPeriod(String startDate, String endDate);
 
 }

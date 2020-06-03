@@ -35,4 +35,11 @@ public class TaskController {
         taskService.delete(id);
     }
 
+    @GetMapping("/tasks/statsByDate")
+    public List<DateAndTasksView> taskSummariesByDateForPeriod(
+            @RequestParam String startDate, @RequestParam String endDate
+    ) {
+        return taskService.getTaskSummariesByDateForPeriod(startDate, endDate);
+    }
+
 }
