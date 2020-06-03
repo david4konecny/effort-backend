@@ -9,7 +9,8 @@ public interface TimeService {
     TimeSession insert(TimeSession timeEntry);
     TimeSession edit(TimeSession timeEntry);
     void deleteById(Long id);
-    Integer getTotalDuration(String date);
+    Integer getTotalForDate(String date);
+    Long getTotalForPeriod(String startDate, String endDate);
     List<DateAndDurationView> getTotalByMonth(String date);
 
 }

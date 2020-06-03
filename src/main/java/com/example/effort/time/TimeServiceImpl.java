@@ -43,10 +43,17 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public Integer getTotalDuration(String date) {
+    public Integer getTotalForDate(String date) {
         LocalDate d = LocalDate.parse(date);
         List<TimeSession> entries = timeRepository.findByDate(d);
         return entries.stream().mapToInt(TimeSession::getDuration).sum();
+    }
+
+    @Override
+    public Long getTotalForPeriod(String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        return timeRepository.getTotalForPeriod(start, end);
     }
 
     @Override
