@@ -3,6 +3,7 @@ package com.example.effort.time;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,7 +50,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public Map<LocalDate, Long> getTotalByMonth(String date) {
+    public List<DateAndDurationView> getTotalByMonth(String date) {
         Map<LocalDate, Long> out = new TreeMap<>();
         int year = Integer.parseInt(date.substring(0, 4));
         int month = Integer.parseInt(date.substring(5));
@@ -63,7 +64,11 @@ public class TimeServiceImpl implements TimeService {
                 out.put(next, 0L);
             }
         }
-        return out;
+        List<DateAndDurationView> list = new ArrayList<>();
+        for (Map.Entry<LocalDate, Long> entry : out.entrySet()) {
+            list.add(new DateAndDurationView(entry.getKey(), entry.getValue()));
+        }
+        return list;
     }
 
 }

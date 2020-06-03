@@ -40,7 +40,7 @@ public class TimeController {
     }
 
     @GetMapping("/time/total/month")
-    public Map<LocalDate, Long> monthStats(@RequestParam String date) {
+    public List<DateAndDurationView> monthStats(@RequestParam String date) {
         return timeService.getTotalByMonth(date);
     }
 
