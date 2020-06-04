@@ -1,5 +1,7 @@
 package com.example.effort.category;
 
+import com.example.effort.util.validation.HexColor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +12,7 @@ public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @HexColor
     private String color;
 
     public Category() {
