@@ -24,6 +24,7 @@ public class DataLoader implements ApplicationRunner {
     private final ReviewService reviewService;
     private final CategoryService categoryService;
     private final TimeService timeService;
+    private final List<Category> categories = new ArrayList();
 
     public DataLoader(TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
         this.taskService = taskService;
@@ -60,10 +61,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void addSampleCategories() {
-        List<Category> categories = new ArrayList<>();
         Collections.addAll(categories,
-                new Category("programming", "blue"),
-                new Category("writing", "green")
+                new Category("programming", "#00ff00"),
+                new Category("writing", "#ff0000")
         );
         categoryService.insertAll(categories);
     }
@@ -71,9 +71,9 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTimeEntries() {
         List<TimeSession> timeEntries = new ArrayList<>();
         Collections.addAll(timeEntries,
-                new TimeSession(LocalDate.now().minusDays(1L), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
-                new TimeSession(LocalDate.now(), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
-                new TimeSession(LocalDate.now(), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
+                new TimeSession(LocalDate.now().minusDays(1L), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
+                new TimeSession(LocalDate.now(), categories.get(0), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
+                new TimeSession(LocalDate.now(), categories.get(1), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
         );
         timeService.insertAll(timeEntries);
     }

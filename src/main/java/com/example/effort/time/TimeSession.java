@@ -1,12 +1,11 @@
 package com.example.effort.time;
 
+import com.example.effort.category.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 public class TimeSession {
@@ -14,6 +13,8 @@ public class TimeSession {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @ManyToOne @JoinColumn(name = "category_id", foreignKey = @ForeignKey())
+    private Category category;
     private Integer startTime;
     private Integer endTime;
     @Transient @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -22,8 +23,9 @@ public class TimeSession {
     public TimeSession() {
     }
 
-    public TimeSession(LocalDate date, Integer startTime, Integer endTime) {
+    public TimeSession(LocalDate date, Category category, Integer startTime, Integer endTime) {
         this.date = date;
+        this.category = category;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -42,6 +44,14 @@ public class TimeSession {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getStartTime() {
