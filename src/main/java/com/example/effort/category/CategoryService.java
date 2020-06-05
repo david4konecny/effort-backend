@@ -8,5 +8,6 @@ public interface CategoryService {
     void insertAll(List<Category> categories);
     Category add(Category category);
     Category edit(Category category);
+    void deleteById(Long id);
 
 }
