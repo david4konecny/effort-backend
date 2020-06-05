@@ -6,5 +6,7 @@ public interface CategoryService {
 
     List<Category> getAll();
     void insertAll(List<Category> categories);
+    Category add(Category category);
+    Category edit(Category category);
 
 }

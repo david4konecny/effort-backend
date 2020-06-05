@@ -22,4 +22,13 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.saveAll(categories);
     }
 
+    @Override
+    public Category add(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category edit(Category category) {
+        return categoryRepository.save(category);
+    }
 }

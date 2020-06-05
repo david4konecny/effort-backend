@@ -1,7 +1,6 @@
 package com.example.effort.category;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,9 +12,19 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/category")
     public List<Category> getAll() {
         return categoryService.getAll();
+    }
+
+    @PostMapping("/category")
+    public Category add(@RequestBody Category category) {
+        return categoryService.add(category);
+    }
+
+    @PutMapping("/category")
+    public Category edit(@RequestBody Category category) {
+        return categoryService.edit(category);
     }
 
 }
