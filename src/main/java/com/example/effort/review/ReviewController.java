@@ -20,17 +20,17 @@ public class ReviewController {
             return reviewService.getReviewsByDate(date);
     }
 
-    @PostMapping("/review")
+    @PostMapping("/reviews")
     public Review insert(@RequestBody Review review) {
         return reviewService.insert(review);
     }
 
-    @PutMapping("/review")
+    @PutMapping("/reviews")
     public Review edit(@RequestBody Review review) {
         return reviewService.edit(review);
     }
 
-    @DeleteMapping("/review/{id}")
+    @DeleteMapping("/reviews/{id}")
     public void deleteById(@PathVariable Long id) {
         reviewService.deleteById(id);
     }
