@@ -1,5 +1,6 @@
 package com.example.effort.config;
 
+import com.example.effort.auth.JWTFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/api/users/**").hasRole("USER")
-                .antMatchers("/**").permitAll()
                 .and()
                 .httpBasic();
+
+        http
+                .cors().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .antMatchers("/**").hasRole("USER")
+                .and()
+                .addFilter(new JWTFilter(authenticationManager()));
     }
 
     @Bean
