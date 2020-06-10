@@ -1,17 +1,17 @@
 package com.example.effort.task;
 
+import com.example.effort.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Task {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
+    private User user;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String description;
@@ -20,7 +20,8 @@ public class Task {
     public Task() {
     }
 
-    public Task(LocalDate date, String description) {
+    public Task(User user, LocalDate date, String description) {
+        this.user = user;
         this.date = date;
         this.description = description;
     }
@@ -31,6 +32,14 @@ public class Task {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getDate() {

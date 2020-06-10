@@ -1,6 +1,7 @@
 package com.example.effort.time;
 
 import com.example.effort.category.Category;
+import com.example.effort.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,6 +12,8 @@ import java.time.LocalDate;
 public class TimeSession {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
+    private User user;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     @ManyToOne @JoinColumn(name = "category_id", foreignKey = @ForeignKey())
@@ -23,7 +26,8 @@ public class TimeSession {
     public TimeSession() {
     }
 
-    public TimeSession(LocalDate date, Category category, Integer startTime, Integer endTime) {
+    public TimeSession(User user, LocalDate date, Category category, Integer startTime, Integer endTime) {
+        this.user = user;
         this.date = date;
         this.category = category;
         this.startTime = startTime;
@@ -36,6 +40,14 @@ public class TimeSession {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getDate() {

@@ -1,16 +1,16 @@
 package com.example.effort.category;
 
+import com.example.effort.user.User;
 import com.example.effort.util.validation.HexColor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
+    private User user;
     private String name;
     @HexColor
     private String color;
@@ -18,7 +18,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, String color) {
+    public Category(User user, String name, String color) {
+        this.user = user;
         this.name = name;
         this.color = color;
     }
@@ -29,6 +30,14 @@ public class Category {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

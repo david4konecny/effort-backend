@@ -28,6 +28,8 @@ public class DataLoader implements ApplicationRunner {
     private final CategoryService categoryService;
     private final TimeService timeService;
     private final List<Category> categories = new ArrayList();
+    private final User u1 = new User("joe", "test");
+    private final User u2 = new User("frank", "test");
 
     public DataLoader(UserService userService, TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
         this.userService = userService;
@@ -47,8 +49,6 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void addSampleUsers() {
-        User u1 = new User("joe", "test");
-        User u2 = new User("frank", "test");
         userService.insert(u1);
         userService.insert(u2);
     }
@@ -56,9 +56,9 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTasks() {
         List<Task> tasks = new ArrayList<>();
         Collections.addAll(tasks,
-                new Task(LocalDate.now().minusDays(1L), "watch a movie"),
-                new Task(LocalDate.now(), "write a report"),
-                new Task(LocalDate.now(), "clean dog")
+                new Task(u1, LocalDate.now().minusDays(1L), "watch a movie"),
+                new Task(u1, LocalDate.now(), "write a report"),
+                new Task(u2, LocalDate.now(), "clean dog")
         );
         taskService.insertAll(tasks);
     }
@@ -66,16 +66,18 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleReviews() {
         List<Review> reviews = new ArrayList<>();
         Collections.addAll(reviews,
-                new Review("Not a bad day after all!", LocalDate.now().minusDays(1L), 3),
-                new Review("Had a blast today.", LocalDate.now(), 4)
+                new Review(u1, "Not a bad day after all!", LocalDate.now().minusDays(1L), 3),
+                new Review(u2, "Had a blast today.", LocalDate.now(), 4)
         );
         reviewService.addAll(reviews);
     }
 
     private void addSampleCategories() {
         Collections.addAll(categories,
-                new Category("programming", "#00ff00"),
-                new Category("writing", "#ff0000")
+                new Category(u1, "programming", "#00ff00"),
+                new Category(u1, "writing", "#ff0000"),
+                new Category(u2, "chess", "#ff0000"),
+                new Category(u2, "writing", "#ff0000")
         );
         categoryService.insertAll(categories);
     }
@@ -83,9 +85,9 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTimeEntries() {
         List<TimeSession> timeEntries = new ArrayList<>();
         Collections.addAll(timeEntries,
-                new TimeSession(LocalDate.now().minusDays(1L), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
-                new TimeSession(LocalDate.now(), categories.get(0), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
-                new TimeSession(LocalDate.now(), categories.get(1), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
+                new TimeSession(u1, LocalDate.now().minusDays(1L), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
+                new TimeSession(u1, LocalDate.now(), categories.get(1), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
+                new TimeSession(u2, LocalDate.now(), categories.get(2), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
         );
         timeService.insertAll(timeEntries);
     }

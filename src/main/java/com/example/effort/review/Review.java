@@ -1,11 +1,9 @@
 package com.example.effort.review;
 
+import com.example.effort.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
@@ -14,6 +12,8 @@ import java.time.LocalDate;
 public class Review {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
+    private User user;
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
@@ -23,7 +23,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(String description, LocalDate date, Integer rating) {
+    public Review(User user, String description, LocalDate date, Integer rating) {
+        this.user = user;
         this.description = description;
         this.date = date;
         this.rating = rating;
@@ -35,6 +36,14 @@ public class Review {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
