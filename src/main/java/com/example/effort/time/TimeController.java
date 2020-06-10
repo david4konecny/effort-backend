@@ -14,17 +14,17 @@ public class TimeController {
     }
 
     @GetMapping("")
-    public List<TimeSession> getAllByDate(@RequestParam String date) {
+    public List<TimeEntry> getAllByDate(@RequestParam String date) {
         return timeService.getAllByDate(date);
     }
 
     @PostMapping("")
-    public TimeSession insert(@RequestBody TimeSession timeEntry) {
+    public TimeEntry insert(@RequestBody TimeEntry timeEntry) {
         return timeService.insert(timeEntry);
     }
 
     @PutMapping("")
-    public TimeSession edit(@RequestBody TimeSession timeEntry) {
+    public TimeEntry edit(@RequestBody TimeEntry timeEntry) {
         return timeService.insert(timeEntry);
     }
 

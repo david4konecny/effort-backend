@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class TimeSession {
+public class TimeEntry {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
@@ -23,10 +23,10 @@ public class TimeSession {
     @Transient @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer duration;
 
-    public TimeSession() {
+    public TimeEntry() {
     }
 
-    public TimeSession(User user, LocalDate date, Category category, Integer startTime, Integer endTime) {
+    public TimeEntry(User user, LocalDate date, Category category, Integer startTime, Integer endTime) {
         this.user = user;
         this.date = date;
         this.category = category;

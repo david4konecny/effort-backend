@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface TimeRepository extends JpaRepository<TimeSession, Long> {
+public interface TimeRepository extends JpaRepository<TimeEntry, Long> {
 
-    List<TimeSession> findByDate(LocalDate date);
+    List<TimeEntry> findByDate(LocalDate date);
 
     @Query("select new com.example.effort.time.DateAndDurationView(t.date, sum(t.endTime - t.startTime)) from TimeSession t where t.date >= ?1 and t.date <= ?2 group by t.date")
     List<DateAndDurationView> getTotalByDate(LocalDate startDate, LocalDate endDate);

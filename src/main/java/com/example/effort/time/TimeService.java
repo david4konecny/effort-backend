@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface TimeService {
 
-    List<TimeSession> getAllByDate(String date);
-    void insertAll(List<TimeSession> timeEntries);
-    TimeSession insert(TimeSession timeEntry);
-    TimeSession edit(TimeSession timeEntry);
+    List<TimeEntry> getAllByDate(String date);
+    void insertAll(List<TimeEntry> timeEntries);
+    TimeEntry insert(TimeEntry timeEntry);
+    TimeEntry edit(TimeEntry timeEntry);
     void deleteById(Long id);
     Integer getTotalForDate(String date);
     Long getTotalForPeriod(String startDate, String endDate);

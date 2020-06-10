@@ -17,23 +17,23 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public List<TimeSession> getAllByDate(String date) {
+    public List<TimeEntry> getAllByDate(String date) {
         LocalDate d = LocalDate.parse(date);
         return timeRepository.findByDate(d);
     }
 
     @Override
-    public void insertAll(List<TimeSession> timeEntries) {
+    public void insertAll(List<TimeEntry> timeEntries) {
         timeRepository.saveAll(timeEntries);
     }
 
     @Override
-    public TimeSession insert(TimeSession timeEntry) {
+    public TimeEntry insert(TimeEntry timeEntry) {
         return timeRepository.save(timeEntry);
     }
 
     @Override
-    public TimeSession edit(TimeSession timeEntry) {
+    public TimeEntry edit(TimeEntry timeEntry) {
         return timeRepository.save(timeEntry);
     }
 
@@ -45,8 +45,8 @@ public class TimeServiceImpl implements TimeService {
     @Override
     public Integer getTotalForDate(String date) {
         LocalDate d = LocalDate.parse(date);
-        List<TimeSession> entries = timeRepository.findByDate(d);
-        return entries.stream().mapToInt(TimeSession::getDuration).sum();
+        List<TimeEntry> entries = timeRepository.findByDate(d);
+        return entries.stream().mapToInt(TimeEntry::getDuration).sum();
     }
 
     @Override
