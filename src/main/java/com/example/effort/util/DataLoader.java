@@ -8,6 +8,8 @@ import com.example.effort.task.Task;
 import com.example.effort.task.TaskService;
 import com.example.effort.time.TimeService;
 import com.example.effort.time.TimeSession;
+import com.example.effort.user.User;
+import com.example.effort.user.UserService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,13 +22,15 @@ import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
+    private final UserService userService;
     private final TaskService taskService;
     private final ReviewService reviewService;
     private final CategoryService categoryService;
     private final TimeService timeService;
     private final List<Category> categories = new ArrayList();
 
-    public DataLoader(TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
+    public DataLoader(UserService userService, TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
+        this.userService = userService;
         this.taskService = taskService;
         this.reviewService = reviewService;
         this.categoryService = categoryService;
@@ -35,10 +39,18 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        addSampleUsers();
         addSampleTasks();
         addSampleReviews();
         addSampleCategories();
         addSampleTimeEntries();
+    }
+
+    private void addSampleUsers() {
+        User u1 = new User("joe", "test");
+        User u2 = new User("frank", "test");
+        userService.insert(u1);
+        userService.insert(u2);
     }
 
     private void addSampleTasks() {

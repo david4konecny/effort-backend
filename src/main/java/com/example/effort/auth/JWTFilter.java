@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -57,11 +58,7 @@ public class JWTFilter extends BasicAuthenticationFilter {
             JsonParser parser = JsonParserFactory.getJsonParser();
             Map<String, Object> jsonMap = parser.parseMap(payload);
             String username = (String) jsonMap.get("user");
-            String role = (String) jsonMap.get("role");
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            GrantedAuthority authority = (GrantedAuthority) () -> String.format("ROLE_%s", role);
-            authorities.add(authority);
-            return new UsernamePasswordAuthenticationToken(username, null, authorities);
+            return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
         } catch (Exception e) {
             return null;
         }

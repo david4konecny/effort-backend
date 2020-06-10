@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-    private static final PasswordEncoder passwordEncoder
+    public static final PasswordEncoder PASSWORD_ENCODER
             = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class User {
 
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 
     public Long getId() {
@@ -49,6 +49,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = passwordEncoder.encode(password);
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 }

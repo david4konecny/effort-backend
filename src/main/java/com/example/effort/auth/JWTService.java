@@ -30,10 +30,9 @@ public class JWTService {
         publicKey = (RSAPublicKey) keyPair.getPublic();
     }
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String username) {
         return JWT.create()
                 .withClaim("user", username)
-                .withClaim("role", role)
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .sign(Algorithm.RSA256(publicKey, privateKey));
     }

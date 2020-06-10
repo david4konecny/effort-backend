@@ -17,7 +17,6 @@ public class AuthService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         String username = user.getUsername();
-        String role = user.getAuthorities().toArray()[0].toString().substring(5);
-        return jwtService.generateToken(username, role);
+        return jwtService.generateToken(username);
     }
 }

@@ -19,8 +19,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/authenticate")
-    public Map<String, String> authenticate() {
+    @GetMapping("/login")
+    public Map<String, String> login() {
         Map<String, String> result = new HashMap<>();
         result.put("token", authService.getToken());
         return result;
