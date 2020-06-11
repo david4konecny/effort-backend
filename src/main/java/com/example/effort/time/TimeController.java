@@ -18,14 +18,33 @@ public class TimeController {
         return timeService.getAllByDate(date);
     }
 
-    @PostMapping("")
-    public TimeEntry insert(@RequestBody TimeEntry timeEntry) {
-        return timeService.insert(timeEntry);
+    @GetMapping("/current")
+    public List<CurrentTimeEntry> getCurrent() {
+        return timeService.getCurrent();
     }
 
-    @PutMapping("")
-    public TimeEntry edit(@RequestBody TimeEntry timeEntry) {
-        return timeService.insert(timeEntry);
+    @PostMapping("/current")
+    public TimeEntry insertCurrent(@RequestBody CurrentTimeEntry timeEntry) {
+        return timeService.insertCurrent(timeEntry);
+    }
+
+    @PostMapping("/finished")
+    public TimeEntry insertFinished(@RequestBody FinishedTimeEntry timeEntry) {
+        return timeService.insertFinished(timeEntry);
+    }
+
+    @PutMapping("/current")
+    public TimeEntry editCurrent(@RequestBody CurrentTimeEntry timeEntry,
+                                 @RequestParam(required = false) boolean end) {
+        if (end) {
+            return timeService.endCurrent(timeEntry);
+        }
+        return timeService.editCurrent(timeEntry);
+    }
+
+    @PutMapping("/finished")
+    public TimeEntry editFinished(@RequestBody FinishedTimeEntry timeEntry) {
+        return timeService.editFinished(timeEntry);
     }
 
     @DeleteMapping("/{id}")
