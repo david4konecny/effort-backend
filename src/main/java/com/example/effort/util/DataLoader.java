@@ -6,6 +6,7 @@ import com.example.effort.review.Review;
 import com.example.effort.review.ReviewService;
 import com.example.effort.task.Task;
 import com.example.effort.task.TaskService;
+import com.example.effort.time.FinishedTimeEntry;
 import com.example.effort.time.TimeService;
 import com.example.effort.time.TimeEntry;
 import com.example.effort.user.User;
@@ -85,9 +86,9 @@ public class DataLoader implements ApplicationRunner {
     private void addSampleTimeEntries() {
         List<TimeEntry> timeEntries = new ArrayList<>();
         Collections.addAll(timeEntries,
-                new TimeEntry(u1, LocalDate.now().minusDays(1L), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
-                new TimeEntry(u1, LocalDate.now(), categories.get(1), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
-                new TimeEntry(u2, LocalDate.now(), categories.get(2), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
+                new FinishedTimeEntry(u1, LocalDate.now().minusDays(1L), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay()),
+                new FinishedTimeEntry(u1, LocalDate.now(), categories.get(1), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay()),
+                new FinishedTimeEntry(u2, LocalDate.now(), categories.get(2), LocalTime.of(7, 0).toSecondOfDay(), LocalTime.of(8,0).toSecondOfDay())
         );
         timeService.insertAll(timeEntries);
     }

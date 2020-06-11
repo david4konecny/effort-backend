@@ -9,8 +9,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class TimeEntry {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class TimeEntry {
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
     private User user;
