@@ -10,8 +10,8 @@ public interface TimeService {
     TimeEntry insertCurrent(CurrentTimeEntry timeEntry);
     TimeEntry editFinished(FinishedTimeEntry timeEntry);
     TimeEntry editCurrent(CurrentTimeEntry timeEntry);
-    TimeEntry endCurrent(CurrentTimeEntry timeEntry);
-    void deleteById(Long id);
+    void deleteFinishedById(Long id);
+    void deleteCurrentById(Long id);
     Integer getTotalForDate(String date);
     Long getTotalForPeriod(String startDate, String endDate);
     List<DateAndDurationView> getTotalByMonth(String date);

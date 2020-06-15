@@ -34,11 +34,7 @@ public class TimeController {
     }
 
     @PutMapping("/current")
-    public TimeEntry editCurrent(@RequestBody CurrentTimeEntry timeEntry,
-                                 @RequestParam(required = false) boolean end) {
-        if (end) {
-            return timeService.endCurrent(timeEntry);
-        }
+    public TimeEntry editCurrent(@RequestBody CurrentTimeEntry timeEntry) {
         return timeService.editCurrent(timeEntry);
     }
 
@@ -47,9 +43,14 @@ public class TimeController {
         return timeService.editFinished(timeEntry);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        timeService.deleteById(id);
+    @DeleteMapping("/current/{id}")
+    public void deleteCurrent(@PathVariable Long id) {
+        timeService.deleteCurrentById(id);
+    }
+
+    @DeleteMapping("/finished/{id}")
+    public void deleteFinished(@PathVariable Long id) {
+        timeService.deleteFinishedById(id);
     }
 
     @GetMapping("/total")

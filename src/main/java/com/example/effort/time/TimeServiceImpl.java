@@ -52,14 +52,13 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public TimeEntry endCurrent(CurrentTimeEntry timeEntry) {
-        currentRepo.delete(timeEntry);
-        return finishedRepo.save(currentToFinished(timeEntry));
+    public void deleteFinishedById(Long id) {
+        finishedRepo.deleteById(id);
     }
 
     @Override
-    public void deleteById(Long id) {
-        timeRepo.deleteById(id);
+    public void deleteCurrentById(Long id) {
+        currentRepo.deleteById(id);
     }
 
     @Override

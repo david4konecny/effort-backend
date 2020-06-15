@@ -30,6 +30,10 @@ public class UserController {
         return res;
     }
 
+    @GetMapping("/login/test")
+    public void testAuthentication() {
+    }
+
     @GetMapping("")
     public List<User> findAll() {
         return userService.findAll();
@@ -44,7 +48,7 @@ public class UserController {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/api");
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(180);
+        cookie.setMaxAge(1800);
         return cookie;
     }
 
