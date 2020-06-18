@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationRunner {
     private final ReviewService reviewService;
     private final CategoryService categoryService;
     private final TimeService timeService;
-    private final List<Category> categories = new ArrayList();
+    private final List<Category> categories = new ArrayList<>();
     private final User u1 = new User("joe", "test");
     private final User u2 = new User("frank", "test");
 
@@ -85,9 +85,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void addSampleTimeEntries() {
-        CurrentTimeEntry c = new CurrentTimeEntry(u1, LocalDate.now(), categories.get(0), LocalTime.of(8, 0).toSecondOfDay(), LocalTime.of(9,0).toSecondOfDay());
+        // CurrentTimeEntry c = new CurrentTimeEntry(u1, LocalDate.now(), categories.get(0), LocalTime.now().minusMinutes(30L).toSecondOfDay(), LocalTime.now().toSecondOfDay());
         FinishedTimeEntry f = new FinishedTimeEntry(u1, LocalDate.now(), categories.get(1), LocalTime.of(6, 0).toSecondOfDay(), LocalTime.of(6,30).toSecondOfDay());
-        timeService.insertCurrent(c);
+        // timeService.insertCurrent(c);
         timeService.insertFinished(f);
     }
 

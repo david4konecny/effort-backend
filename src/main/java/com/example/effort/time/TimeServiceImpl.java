@@ -23,7 +23,7 @@ public class TimeServiceImpl implements TimeService {
     @Override
     public List<TimeEntry> getAllByDate(String date) {
         LocalDate d = LocalDate.parse(date);
-        return timeRepo.findByDate(d);
+        return timeRepo.findByDateOrderByStartTime(d);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TimeServiceImpl implements TimeService {
     @Override
     public Integer getTotalForDate(String date) {
         LocalDate d = LocalDate.parse(date);
-        List<TimeEntry> entries = timeRepo.findByDate(d);
+        List<TimeEntry> entries = timeRepo.findByDateOrderByStartTime(d);
         return entries.stream().mapToInt(TimeEntry::getDuration).sum();
     }
 

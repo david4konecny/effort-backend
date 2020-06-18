@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public Map<String, String> login(HttpServletResponse response) {
+    public Map<String, String> login(HttpServletResponse response, Principal principal) {
         Map<String, String> res = new HashMap<>();
         Cookie c = createCookie("access-token", authService.getToken());
         response.addCookie(c);
         res.put("result", "logged in");
+        res.put("username", principal.getName());
         return res;
     }
 
@@ -35,6 +37,13 @@ public class UserController {
     }
 
     @GetMapping("")
+    public Map<String, String> getUser(Principal principal) {
+        Map<String, String> res = new HashMap<>();
+        res.put("username", principal.getName());
+        return res;
+    }
+
+    @GetMapping("/all")
     public List<User> findAll() {
         return userService.findAll();
     }

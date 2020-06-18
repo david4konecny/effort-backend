@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TimeRepository extends JpaRepository<TimeEntry, Long> {
 
-    List<TimeEntry> findByDate(LocalDate date);
+    List<TimeEntry> findByDateOrderByStartTime(LocalDate date);
 
     @Query("select new com.example.effort.time.DateAndDurationView(t.date, sum(t.endTime - t.startTime)) from TimeEntry t where t.date >= ?1 and t.date <= ?2 group by t.date")
     List<DateAndDurationView> getTotalByDate(LocalDate startDate, LocalDate endDate);
