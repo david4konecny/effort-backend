@@ -11,6 +11,7 @@ public class UserDto {
     @NotBlank(message = "Password is required")
     @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long")
     private String password;
+    private boolean addSampleData;
 
     public UserDto(String username, String password) {
         this.username = username;
@@ -39,6 +40,14 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAddSampleData() {
+        return addSampleData;
+    }
+
+    public void setAddSampleData(boolean addSampleData) {
+        this.addSampleData = addSampleData;
     }
 
     public User toUser() {

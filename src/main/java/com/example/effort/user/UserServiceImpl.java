@@ -1,5 +1,6 @@
 package com.example.effort.user;
 
+import com.example.effort.util.SampleData;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final SampleData sampleData;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, SampleData sampleData) {
         this.userRepository = userRepository;
+        this.sampleData = sampleData;
     }
 
     @Override
@@ -28,6 +31,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean usernameExists(String username) {
         return userRepository.findByUsername(username) != null;
+    }
+
+    @Override
+    public void addSampleData(User user) {
+        sampleData.addSampleData(user);
     }
 
     @Override

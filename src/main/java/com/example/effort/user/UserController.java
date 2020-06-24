@@ -52,12 +52,15 @@ public class UserController {
 
     @PostMapping("")
     public User add(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors())
             throw new UserNotValidException(bindingResult.getAllErrors());
-        } else if (userService.usernameExists(userDto.getUsername())) {
+        else if (userService.usernameExists(userDto.getUsername()))
             throw new UsernameAlreadyExistsException(userDto.getUsername());
-        } else {
-            return userService.insert(userDto.toUser());
+        else {
+            User user = userService.insert(userDto.toUser());
+            if (userDto.isAddSampleData())
+                userService.addSampleData(user);
+            return user;
         }
     }
 
