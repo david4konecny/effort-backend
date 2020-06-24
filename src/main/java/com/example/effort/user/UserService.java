@@ -8,5 +8,6 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAll();
     User insert(User user);
+    boolean usernameExists(String username);
 
 }

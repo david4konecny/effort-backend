@@ -50,6 +50,8 @@ public class UserController {
 
     @PostMapping("")
     public User add(@RequestBody User user) {
+        if (userService.usernameExists(user.getUsername()))
+            throw new UsernameAlreadyExistsException(user.getUsername());
         return userService.insert(user);
     }
 
