@@ -30,8 +30,8 @@ public class DataLoader implements ApplicationRunner {
     private final CategoryService categoryService;
     private final TimeService timeService;
     private final List<Category> categories = new ArrayList<>();
-    private final User u1 = new User("joe", "test");
-    private final User u2 = new User("frank", "test");
+    private final User u1 = new User("joe", "testtest");
+    private final User u2 = new User("frank", "testtest");
 
     public DataLoader(UserService userService, TaskService taskService, ReviewService reviewService, CategoryService categoryService, TimeService timeService) {
         this.userService = userService;

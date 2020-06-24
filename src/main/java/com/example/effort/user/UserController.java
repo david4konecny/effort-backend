@@ -2,10 +2,12 @@ package com.example.effort.user;
 
 
 import com.example.effort.auth.AuthService;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -49,10 +51,14 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User add(@RequestBody User user) {
-        if (userService.usernameExists(user.getUsername()))
-            throw new UsernameAlreadyExistsException(user.getUsername());
-        return userService.insert(user);
+    public User add(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new UserNotValidException(bindingResult.getAllErrors());
+        } else if (userService.usernameExists(userDto.getUsername())) {
+            throw new UsernameAlreadyExistsException(userDto.getUsername());
+        } else {
+            return userService.insert(userDto.toUser());
+        }
     }
 
     private Cookie createCookie(String name, String value) {
