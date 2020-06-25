@@ -64,6 +64,15 @@ public class UserController {
         }
     }
 
+    @PutMapping("/username")
+    public void editUsername(@RequestBody String newUsername) {
+        System.out.println(newUsername);
+        if (userService.usernameExists(newUsername))
+            throw new UsernameAlreadyExistsException(newUsername);
+        else
+            userService.editUsername(newUsername);
+    }
+
     private Cookie createCookie(String name, String value) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/api");

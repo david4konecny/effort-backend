@@ -10,5 +10,6 @@ public interface UserService extends UserDetailsService {
     User insert(User user);
     boolean usernameExists(String username);
     void addSampleData(User user);
+    void editUsername(String newUsername);
 
 }
