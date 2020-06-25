@@ -1,5 +1,7 @@
 package com.example.effort.time;
 
+import com.example.effort.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +26,16 @@ public class TimeController {
     }
 
     @PostMapping("/current")
-    public TimeEntry insertCurrent(@RequestBody CurrentTimeEntry timeEntry) {
+    public TimeEntry insertCurrent(@RequestBody CurrentTimeEntry timeEntry, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        timeEntry.setUser(user);
         return timeService.insertCurrent(timeEntry);
     }
 
     @PostMapping("/finished")
-    public TimeEntry insertFinished(@RequestBody FinishedTimeEntry timeEntry) {
+    public TimeEntry insertFinished(@RequestBody FinishedTimeEntry timeEntry, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        timeEntry.setUser(user);
         return timeService.insertFinished(timeEntry);
     }
 

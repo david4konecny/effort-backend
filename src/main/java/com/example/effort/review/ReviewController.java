@@ -1,5 +1,7 @@
 package com.example.effort.review;
 
+import com.example.effort.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,9 @@ public class ReviewController {
     }
 
     @PostMapping("")
-    public Review insert(@RequestBody Review review) {
+    public Review insert(@RequestBody Review review, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        review.setUser(user);
         return reviewService.insert(review);
     }
 

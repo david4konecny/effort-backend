@@ -28,7 +28,7 @@ public class TimeServiceImpl implements TimeService {
 
     @Override
     public List<CurrentTimeEntry> getCurrent() {
-        return currentRepo.findAll();
+        return currentRepo.findAllForUser();
     }
 
     @Override

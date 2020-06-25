@@ -1,5 +1,7 @@
 package com.example.effort.task;
 
+import com.example.effort.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,9 @@ public class TaskController {
     }
 
     @PostMapping("")
-    public Task addTask(@RequestBody Task task) {
+    public Task addTask(@RequestBody Task task, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        task.setUser(user);
         return taskService.add(task);
     }
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface TimeRepository extends JpaRepository<TimeEntry, Long> {
 
+    @Query("select t from TimeEntry t where t.date = ?1 and t.user.id = ?#{ principal?.id } order by t.startTime")
     List<TimeEntry> findByDateOrderByStartTime(LocalDate date);
 
     @Query("select new com.example.effort.time.DateAndDurationView(t.date, sum(t.endTime - t.startTime)) from TimeEntry t where t.date >= ?1 and t.date <= ?2 group by t.date")
