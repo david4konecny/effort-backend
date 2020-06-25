@@ -5,7 +5,9 @@ import com.example.effort.auth.AuthService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -66,11 +68,16 @@ public class UserController {
 
     @PutMapping("/username")
     public void editUsername(@RequestBody String newUsername) {
-        System.out.println(newUsername);
         if (userService.usernameExists(newUsername))
             throw new UsernameAlreadyExistsException(newUsername);
         else
             userService.editUsername(newUsername);
+    }
+
+    @DeleteMapping
+    public void deleteUser(HttpServletRequest request) throws ServletException {
+        userService.deleteUser();
+        request.logout();
     }
 
     private Cookie createCookie(String name, String value) {

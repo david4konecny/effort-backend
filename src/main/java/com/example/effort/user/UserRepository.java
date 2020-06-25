@@ -14,4 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("update User u set u.username = ?1 where u.id = ?#{ principal?.id }")
     void editUsername(String newUsername);
 
+    @Modifying
+    @Transactional
+    @Query("delete from User u where u.id = ?#{ principal?.id }")
+    void deleteUser();
+
 }
