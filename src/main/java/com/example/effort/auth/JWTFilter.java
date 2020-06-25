@@ -1,5 +1,6 @@
 package com.example.effort.auth;
 
+import com.example.effort.user.User;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,13 +42,11 @@ public class JWTFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        if (jwtService == null) {
+        if (jwtService == null)
             injectJWTService(request);
-        }
         UsernamePasswordAuthenticationToken authentication = getAuthentication(cookie.getValue());
-        if (authentication != null) {
+        if (authentication != null)
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
         chain.doFilter(request, response);
     }
 
@@ -72,8 +71,12 @@ public class JWTFilter extends BasicAuthenticationFilter {
             String payload = jwtService.validateToken(token);
             JsonParser parser = JsonParserFactory.getJsonParser();
             Map<String, Object> jsonMap = parser.parseMap(payload);
-            String username = (String) jsonMap.get("user");
-            return new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+            Long id = (Long) jsonMap.get("id");
+            String username = (String) jsonMap.get("username");
+            User user = new User();
+            user.setId(id);
+            user.setUsername(username);
+            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
         } catch (Exception e) {
             return null;
         }

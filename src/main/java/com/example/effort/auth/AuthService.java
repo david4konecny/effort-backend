@@ -1,8 +1,8 @@
 package com.example.effort.auth;
 
+import com.example.effort.user.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +16,6 @@ public class AuthService {
     public String getToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        String username = user.getUsername();
-        return jwtService.generateToken(username);
+        return jwtService.generateToken(user.getId(), user.getUsername());
     }
 }
