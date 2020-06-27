@@ -55,6 +55,17 @@ public class UserServiceImpl implements UserService {
         userRepository.editUsername(newUsername);
     }
 
+    @Override
+    public void editPassword(String oldPassword, String newPassword, String username) {
+        User user = userRepository.findByUsername(username);
+        if (User.PASSWORD_ENCODER.matches(oldPassword, user.getPassword())) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+        } else {
+            throw new IncorrectPasswordException();
+        }
+    }
+
     @Transactional
     @Override
     public void deleteUser() {

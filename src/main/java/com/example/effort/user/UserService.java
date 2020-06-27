@@ -11,6 +11,7 @@ public interface UserService extends UserDetailsService {
     boolean usernameExists(String username);
     void addSampleData(User user);
     void editUsername(String newUsername);
+    void editPassword(String oldPassword, String newPassword, String username);
     void deleteUser();
 
 }

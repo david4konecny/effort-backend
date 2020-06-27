@@ -2,6 +2,7 @@ package com.example.effort.user;
 
 
 import com.example.effort.auth.AuthService;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,6 +73,13 @@ public class UserController {
             throw new UsernameAlreadyExistsException(newUsername);
         else
             userService.editUsername(newUsername);
+    }
+
+    @PutMapping("/password")
+    public void editPassword(@RequestBody Map<String, String> passwords, Authentication authentication) {
+        userService.editPassword(
+                passwords.get("oldPassword"), passwords.get("newPassword"), authentication.getName()
+        );
     }
 
     @DeleteMapping
