@@ -16,14 +16,16 @@ public class Task {
     private LocalDate date;
     private String description;
     private boolean finished;
+    private Double position;
 
     public Task() {
     }
 
-    public Task(User user, LocalDate date, String description) {
+    public Task(User user, LocalDate date, String description, Double position) {
         this.user = user;
         this.date = date;
         this.description = description;
+        this.position = position;
     }
 
     public Long getId() {
@@ -64,5 +66,13 @@ public class Task {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public Double getPosition() {
+        return position;
+    }
+
+    public void setPosition(Double position) {
+        this.position = position;
     }
 }

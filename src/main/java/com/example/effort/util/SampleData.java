@@ -41,9 +41,9 @@ public class SampleData {
     private List<Task> getSampleTasks(User user) {
         List<Task> tasks = new ArrayList<>();
         Collections.addAll(tasks,
-                new Task(user, LocalDate.now().minusDays(1L), "watch a movie"),
-                new Task(user, LocalDate.now(), "write a report"),
-                new Task(user, LocalDate.now(), "clean dog")
+                new Task(user, LocalDate.now().minusDays(1L), "watch a movie", 100.0),
+                new Task(user, LocalDate.now(), "write a report", 100.0),
+                new Task(user, LocalDate.now(), "clean dog", 200.0)
         );
         return tasks;
     }
