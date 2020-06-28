@@ -13,6 +13,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("select r from Review r where r.date = ?1 and r.user.id = ?#{ principal?.id }")
     List<Review> findByDate(LocalDate date);
 
+    @Query("select avg(r.rating) from Review r where r.user.id = ?#{ principal?.id } and r.date >= ?1 and r.date <= ?2")
+    Double getAverageRatingForPeriod(LocalDate startDate, LocalDate endDate);
+
     @Modifying
     @Transactional
     @Query("delete from Review r where r.user.id = ?#{ principal?.id }")

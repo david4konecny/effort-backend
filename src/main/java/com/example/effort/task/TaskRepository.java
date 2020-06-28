@@ -16,6 +16,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("select new com.example.effort.task.DateAndTasksView(t.date, count(t), sum(case when t.finished = true then 1 else 0 end)) from Task t where t.date >= ?1 and t.date <= ?2 group by t.date")
     List<DateAndTasksView> getTaskSummariesByDate(LocalDate startDate, LocalDate endDate);
 
+    @Query("select new com.example.effort.task.PeriodSummaryView(count(t), coalesce(sum(case when t.finished = true then 1 else 0 end), 0)) from Task t where t.user.id = ?#{ principal?.id } and t.date >= ?1 and t.date <= ?2")
+    PeriodSummaryView getSummaryForPeriod(LocalDate startDate, LocalDate endDate);
+
     @Modifying
     @Transactional
     @Query("delete from Task t where t.user.id = ?#{ principal?.id }")

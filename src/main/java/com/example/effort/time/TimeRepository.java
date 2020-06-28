@@ -13,10 +13,10 @@ public interface TimeRepository extends JpaRepository<TimeEntry, Long> {
     @Query("select t from TimeEntry t where t.date = ?1 and t.user.id = ?#{ principal?.id } order by t.startTime")
     List<TimeEntry> findByDateOrderByStartTime(LocalDate date);
 
-    @Query("select new com.example.effort.time.DateAndDurationView(t.date, sum(t.endTime - t.startTime)) from TimeEntry t where t.date >= ?1 and t.date <= ?2 group by t.date")
+    @Query("select new com.example.effort.time.DateAndDurationView(t.date, sum(t.endTime - t.startTime)) from TimeEntry t where t.user.id = ?#{ principal?.id } and t.date >= ?1 and t.date <= ?2 group by t.date")
     List<DateAndDurationView> getTotalByDate(LocalDate startDate, LocalDate endDate);
 
-    @Query("select sum(t.endTime - t.startTime) from TimeEntry t where t.date >= ?1 and t.date <= ?2")
+    @Query("select coalesce(sum(t.endTime - t.startTime), 0) from TimeEntry t where t.user.id = ?#{ principal?.id } and t.date >= ?1 and t.date <= ?2")
     Long getTotalForPeriod(LocalDate startDate, LocalDate endDate);
 
     @Modifying
