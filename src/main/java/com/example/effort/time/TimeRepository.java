@@ -24,4 +24,9 @@ public interface TimeRepository extends JpaRepository<TimeEntry, Long> {
     @Query("delete from TimeEntry t where t.user.id = ?#{ principal?.id }")
     void deleteEntries();
 
+    @Modifying
+    @Transactional
+    @Query("delete from TimeEntry t where t.category.id = ?1 and t.user.id = ?#{ principal?.id }")
+    void deleteEntriesForCategory(Long categoryId);
+
 }

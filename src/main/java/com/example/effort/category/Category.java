@@ -2,6 +2,7 @@ package com.example.effort.category;
 
 import com.example.effort.user.User;
 import com.example.effort.util.validation.HexColor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne @JoinColumn(name = "user_id", foreignKey = @ForeignKey())
+    @JsonIgnore
     private User user;
     private String name;
     @HexColor
