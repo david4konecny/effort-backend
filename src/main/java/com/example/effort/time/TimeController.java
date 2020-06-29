@@ -71,7 +71,12 @@ public class TimeController {
 
     @GetMapping("/total/month")
     public List<DateAndDurationView> monthStats(@RequestParam String date) {
-        return timeService.getTotalByMonth(date);
+        return timeService.getTotalByDateForMonth(date);
+    }
+
+    @GetMapping("/total/period")
+    public List<DateAndDurationView> periodStats(@RequestParam String startDate, @RequestParam String endDate) {
+        return timeService.getTotalByDateForPeriod(startDate, endDate);
     }
 
 }

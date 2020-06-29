@@ -14,6 +14,7 @@ public interface TimeService {
     void deleteCurrentById(Long id);
     Integer getTotalForDate(String date);
     Long getTotalForPeriod(String startDate, String endDate);
-    List<DateAndDurationView> getTotalByMonth(String date);
+    List<DateAndDurationView> getTotalByDateForMonth(String monthDate);
+    List<DateAndDurationView> getTotalByDateForPeriod(String startDate, String endDate);
 
 }

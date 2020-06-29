@@ -76,16 +76,28 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public List<DateAndDurationView> getTotalByMonth(String date) {
-        Map<LocalDate, Long> out = new TreeMap<>();
-        int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(5));
+    public List<DateAndDurationView> getTotalByDateForMonth(String monthDate) {
+        int year = Integer.parseInt(monthDate.substring(0, 4));
+        int month = Integer.parseInt(monthDate.substring(5));
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.plusMonths(1L).minusDays(1L);
+        return getTotalByDateForPeriod(startDate, endDate);
+    }
+
+    @Override
+    public List<DateAndDurationView> getTotalByDateForPeriod(String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        return getTotalByDateForPeriod(start, end);
+    }
+
+    private List<DateAndDurationView> getTotalByDateForPeriod(LocalDate startDate, LocalDate endDate) {
+        Map<LocalDate, Long> out = new TreeMap<>();
+        long numOfDays = endDate.toEpochDay() - startDate.toEpochDay() + 1;
         List<DateAndDurationView> res = timeRepo.getTotalByDate(startDate, endDate);
         res.forEach(item -> out.put(item.getDate(), item.getTotal()));
-        for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
-            LocalDate next = LocalDate.of(year, month, i);
+        for (int i = 0; i < numOfDays; i++) {
+            LocalDate next = startDate.plusDays(i);
             if (!out.containsKey(next)) {
                 out.put(next, 0L);
             }
