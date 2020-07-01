@@ -69,6 +69,12 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    public DateAndDurationView getTotalFinishedForDate(String date) {
+        LocalDate d = LocalDate.parse(date);
+        return finishedRepo.getTotalForDate(d);
+    }
+
+    @Override
     public Long getTotalForPeriod(String startDate, String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);

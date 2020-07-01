@@ -13,6 +13,7 @@ public interface TimeService {
     void deleteFinishedById(Long id);
     void deleteCurrentById(Long id);
     Integer getTotalForDate(String date);
+    DateAndDurationView getTotalFinishedForDate(String date);
     Long getTotalForPeriod(String startDate, String endDate);
     List<DateAndDurationView> getTotalByDateForMonth(String monthDate);
     List<DateAndDurationView> getTotalByDateForPeriod(String startDate, String endDate);

@@ -64,6 +64,11 @@ public class TimeController {
         return timeService.getTotalForDate(date);
     }
 
+    @GetMapping("/finished/total")
+    public DateAndDurationView totalFinishedDurationForDate(@RequestParam String date) {
+        return timeService.getTotalFinishedForDate(date);
+    }
+
     @GetMapping("/total/between")
     public Long totalForPeriod(@RequestParam String startDate, @RequestParam String endDate) {
         return timeService.getTotalForPeriod(startDate, endDate);
