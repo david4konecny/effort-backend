@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public interface FinishedTimeEntryRepository extends JpaRepository<FinishedTimeEntry, Long> {
 
-    @Query("select new com.example.effort.time.DateAndDurationView(f.date, sum(f.endTime - f.startTime)) from FinishedTimeEntry f where f.user.id = ?#{ principal?.id } and f.date = ?1")
-    DateAndDurationView getTotalForDate(LocalDate date);
+    @Query("select coalesce(sum(f.endTime - f.startTime), 0) from FinishedTimeEntry f where f.user.id = ?#{ principal?.id } and f.date = ?1")
+    Long getTotalForDate(LocalDate date);
 
 }

@@ -69,7 +69,7 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
-    public DateAndDurationView getTotalFinishedForDate(String date) {
+    public Long getTotalFinishedForDate(String date) {
         LocalDate d = LocalDate.parse(date);
         return finishedRepo.getTotalForDate(d);
     }

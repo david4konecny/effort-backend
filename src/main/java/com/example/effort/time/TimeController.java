@@ -65,7 +65,7 @@ public class TimeController {
     }
 
     @GetMapping("/finished/total")
-    public DateAndDurationView totalFinishedDurationForDate(@RequestParam String date) {
+    public Long totalFinishedDurationForDate(@RequestParam String date) {
         return timeService.getTotalFinishedForDate(date);
     }
 

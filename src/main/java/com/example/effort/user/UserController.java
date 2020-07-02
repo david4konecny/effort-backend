@@ -60,10 +60,7 @@ public class UserController {
         else if (userService.usernameExists(userDto.getUsername()))
             throw new UsernameAlreadyExistsException(userDto.getUsername());
         else {
-            User user = userService.insert(userDto.toUser());
-            if (userDto.isAddSampleData())
-                userService.addSampleData(user);
-            return user;
+            return userService.insert(userDto.toUser(), userDto.isAddSampleData());
         }
     }
 

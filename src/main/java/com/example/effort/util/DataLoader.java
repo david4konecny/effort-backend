@@ -51,8 +51,8 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void addSampleUsers() {
-        userService.insert(u1);
-        userService.insert(u2);
+        userService.insert(u1, false);
+        userService.insert(u2, false);
     }
 
     private void addSampleTasks() {

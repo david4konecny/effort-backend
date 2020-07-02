@@ -22,6 +22,11 @@ public class SampleData {
         this.categoryService = categoryService;
     }
 
+    public void addDefaultCategory(User user) {
+        Category category = new Category(user, "default", "#3700b3");
+        this.categoryService.add(category);
+    }
+
     public void addSampleData(User user) {
         categoryService.insertAll(getSampleCategories(user));
         taskService.insertAll(getSampleTasks(user));

@@ -35,9 +35,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     @Override
-    public User insert(User user) {
-        return userRepository.save(user);
+    public User insert(User newUser, boolean addSampleData) {
+        User user = userRepository.save(newUser);
+        if (addSampleData)
+            sampleData.addSampleData(user);
+        else
+            sampleData.addDefaultCategory(user);
+        return user;
     }
 
     @Override
