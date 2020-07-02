@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping("/login")
     public Map<String, String> login(HttpServletResponse response, Principal principal) {
         Map<String, String> res = new HashMap<>();
-        Cookie c = createCookie("access-token", authService.getToken());
+        Cookie c = createCookie("access-token", authService.getToken(), 1800);
         response.addCookie(c);
         res.put("result", "logged in");
         res.put("username", principal.getName());
@@ -85,11 +85,17 @@ public class UserController {
         request.logout();
     }
 
-    private Cookie createCookie(String name, String value) {
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        response.addCookie(createCookie("access-token", "", 0));
+        request.logout();
+    }
+
+    private Cookie createCookie(String name, String value, int age) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/api");
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(1800);
+        cookie.setMaxAge(age);
         return cookie;
     }
 
