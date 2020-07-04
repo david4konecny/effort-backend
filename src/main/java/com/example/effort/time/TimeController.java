@@ -32,6 +32,11 @@ public class TimeController {
         return timeService.insertCurrent(timeEntry);
     }
 
+    @GetMapping("/finished")
+    public List<FinishedTimeEntry> getFinishedByDate(@RequestParam String date) {
+        return timeService.getFinishedByDate(date);
+    }
+
     @PostMapping("/finished")
     public TimeEntry insertFinished(@RequestBody FinishedTimeEntry timeEntry, Authentication authentication) {
         User user = (User) authentication.getPrincipal();

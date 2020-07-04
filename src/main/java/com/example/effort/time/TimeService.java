@@ -5,6 +5,7 @@ import java.util.List;
 public interface TimeService {
 
     List<TimeEntry> getAllByDate(String date);
+    List<FinishedTimeEntry> getFinishedByDate(String date);
     List<CurrentTimeEntry> getCurrent();
     TimeEntry insertFinished(FinishedTimeEntry timeEntry);
     TimeEntry insertCurrent(CurrentTimeEntry timeEntry);

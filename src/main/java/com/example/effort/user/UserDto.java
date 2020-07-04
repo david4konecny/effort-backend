@@ -9,7 +9,7 @@ public class UserDto {
     @Size(min = 3, max = 15, message = "Username must be between 3 and 15 characters long")
     private String username;
     @NotBlank(message = "Password is required")
-    @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long")
+    @Size(min = 5, max = 30, message = "Password must be between 5 and 30 characters long")
     private String password;
     private boolean addSampleData;
 

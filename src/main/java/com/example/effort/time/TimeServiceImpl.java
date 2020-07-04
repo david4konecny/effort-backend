@@ -27,6 +27,12 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    public List<FinishedTimeEntry> getFinishedByDate(String date) {
+        LocalDate d = LocalDate.parse(date);
+        return finishedRepo.findByDateOrderByStartTime(d);
+    }
+
+    @Override
     public List<CurrentTimeEntry> getCurrent() {
         return currentRepo.findAllForUser();
     }

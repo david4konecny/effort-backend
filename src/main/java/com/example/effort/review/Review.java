@@ -17,7 +17,7 @@ public class Review {
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
-    @Min(1) @Max(5)
+    @Min(1) @Max(10)
     private Integer rating;
 
     public Review() {
