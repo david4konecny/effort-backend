@@ -26,17 +26,18 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review insert(Review review) {
+        review.setId(null);
         return reviewRepository.save(review);
     }
 
     @Override
-    public Review edit(Review review) {
-        return reviewRepository.save(review);
+    public int edit(Review review) {
+        return reviewRepository.editReview(review);
     }
 
     @Override
-    public void deleteById(Long id) {
-        reviewRepository.deleteById(id);
+    public int deleteById(Long id) {
+        return reviewRepository.deleteReview(id);
     }
 
     @Override

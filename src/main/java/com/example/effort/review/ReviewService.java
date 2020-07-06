@@ -7,8 +7,8 @@ public interface ReviewService {
     List<Review> getAll();
     List<Review> getReviewsByDate(String date);
     Review insert(Review review);
-    Review edit(Review review);
-    void deleteById(Long id);
+    int edit(Review review);
+    int deleteById(Long id);
     void addAll(List<Review> reviews);
 
 }

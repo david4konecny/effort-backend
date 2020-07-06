@@ -29,12 +29,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task add(Task task) {
+        task.setId(null);
         return taskRepository.save(task);
     }
 
     @Override
-    public Task edit(Task task) {
-        return taskRepository.save(task);
+    public int edit(Task task) {
+        return taskRepository.editTask(task);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void delete(Long id) {
-        taskRepository.deleteById(id);
+        taskRepository.deleteTaskById(id);
     }
 
     @Override

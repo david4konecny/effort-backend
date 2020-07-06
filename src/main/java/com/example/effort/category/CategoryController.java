@@ -28,13 +28,17 @@ public class CategoryController {
     }
 
     @PutMapping("")
-    public Category edit(@RequestBody Category category) {
-        return categoryService.edit(category);
+    public void edit(@RequestBody Category category) throws Exception {
+        int updated = categoryService.edit(category);
+        if (updated < 1)
+            throw new Exception("Could not update category");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        categoryService.deleteById(id);
+    public void deleteById(@PathVariable Long id) throws Exception {
+        int deleted = categoryService.deleteById(id);
+        if (deleted < 1)
+            throw new Exception("Could not delete category");
     }
 
 }

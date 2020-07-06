@@ -18,6 +18,16 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Modifying
     @Transactional
+    @Query("update Review r set r.description = ?#{ [0].description }, r.date = ?#{ [0].date }, r.rating = ?#{ [0].rating } where r.id = ?#{ [0].id } and r.user.id = ?#{ principal?.id }")
+    int editReview(Review review);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Review r where r.id = ?#{ [0] } and r.user.id = ?#{ principal?.id }")
+    int deleteReview(Long id);
+
+    @Modifying
+    @Transactional
     @Query("delete from Review r where r.user.id = ?#{ principal?.id }")
     void deleteReviews();
 

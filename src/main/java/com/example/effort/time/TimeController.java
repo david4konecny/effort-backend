@@ -45,23 +45,31 @@ public class TimeController {
     }
 
     @PutMapping("/current")
-    public TimeEntry editCurrent(@RequestBody CurrentTimeEntry timeEntry) {
-        return timeService.editCurrent(timeEntry);
+    public void editCurrent(@RequestBody CurrentTimeEntry timeEntry) throws Exception {
+        int updated = timeService.editCurrent(timeEntry);
+        if (updated < 1)
+            throw new Exception("Could not update entry");
     }
 
     @PutMapping("/finished")
-    public TimeEntry editFinished(@RequestBody FinishedTimeEntry timeEntry) {
-        return timeService.editFinished(timeEntry);
+    public void editFinished(@RequestBody FinishedTimeEntry timeEntry) throws Exception {
+        int updated = timeService.editFinished(timeEntry);
+        if (updated < 1)
+            throw new Exception("Could not update entry");
     }
 
     @DeleteMapping("/current/{id}")
-    public void deleteCurrent(@PathVariable Long id) {
-        timeService.deleteCurrentById(id);
+    public void deleteCurrent(@PathVariable Long id) throws Exception {
+        int deleted = timeService.deleteCurrentById(id);
+        if (deleted < 1)
+            throw new Exception("Could not update entry");
     }
 
     @DeleteMapping("/finished/{id}")
-    public void deleteFinished(@PathVariable Long id) {
-        timeService.deleteFinishedById(id);
+    public void deleteFinished(@PathVariable Long id) throws Exception {
+        int deleted = timeService.deleteFinishedById(id);
+        if (deleted < 1)
+            throw new Exception("Could not delete entry");
     }
 
     @GetMapping("/total")

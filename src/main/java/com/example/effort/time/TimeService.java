@@ -9,10 +9,10 @@ public interface TimeService {
     List<CurrentTimeEntry> getCurrent();
     TimeEntry insertFinished(FinishedTimeEntry timeEntry);
     TimeEntry insertCurrent(CurrentTimeEntry timeEntry);
-    TimeEntry editFinished(FinishedTimeEntry timeEntry);
-    TimeEntry editCurrent(CurrentTimeEntry timeEntry);
-    void deleteFinishedById(Long id);
-    void deleteCurrentById(Long id);
+    int editFinished(FinishedTimeEntry timeEntry);
+    int editCurrent(CurrentTimeEntry timeEntry);
+    int deleteFinishedById(Long id);
+    int deleteCurrentById(Long id);
     Integer getTotalForDate(String date);
     Long getTotalFinishedForDate(String date);
     Long getTotalForPeriod(String startDate, String endDate);

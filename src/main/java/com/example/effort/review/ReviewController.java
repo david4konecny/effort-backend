@@ -27,17 +27,22 @@ public class ReviewController {
     public Review insert(@RequestBody Review review, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         review.setUser(user);
+        review.setId(null);
         return reviewService.insert(review);
     }
 
     @PutMapping("")
-    public Review edit(@RequestBody Review review) {
-        return reviewService.edit(review);
+    public void edit(@RequestBody Review review) throws Exception {
+        int updated = reviewService.edit(review);
+        if (updated < 1)
+            throw new Exception("Could not update review");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        reviewService.deleteById(id);
+    public void deleteById(@PathVariable Long id) throws Exception {
+        int deleted = reviewService.deleteById(id);
+        if (deleted < 1)
+            throw new Exception("Could not delete review");
     }
 
 }

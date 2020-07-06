@@ -39,32 +39,34 @@ public class TimeServiceImpl implements TimeService {
 
     @Override
     public TimeEntry insertFinished(FinishedTimeEntry timeEntry) {
+        timeEntry.setId(null);
         return finishedRepo.save(timeEntry);
     }
 
     @Override
     public TimeEntry insertCurrent(CurrentTimeEntry timeEntry) {
+        timeEntry.setId(null);
         return currentRepo.save(timeEntry);
     }
 
     @Override
-    public TimeEntry editFinished(FinishedTimeEntry timeEntry) {
-        return finishedRepo.save(timeEntry);
+    public int editFinished(FinishedTimeEntry timeEntry) {
+        return finishedRepo.editEntry(timeEntry);
     }
 
     @Override
-    public TimeEntry editCurrent(CurrentTimeEntry timeEntry) {
-        return currentRepo.save(timeEntry);
+    public int editCurrent(CurrentTimeEntry timeEntry) {
+        return currentRepo.editEntry(timeEntry);
     }
 
     @Override
-    public void deleteFinishedById(Long id) {
-        finishedRepo.deleteById(id);
+    public int deleteFinishedById(Long id) {
+        return finishedRepo.deleteEntry(id);
     }
 
     @Override
-    public void deleteCurrentById(Long id) {
-        currentRepo.deleteById(id);
+    public int deleteCurrentById(Long id) {
+        return currentRepo.deleteEntry(id);
     }
 
     @Override

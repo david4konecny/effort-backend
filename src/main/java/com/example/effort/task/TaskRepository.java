@@ -21,6 +21,16 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Modifying
     @Transactional
+    @Query("update Task t set t.date = ?#{ [0].date }, t.description = ?#{ [0].description }, t.finished = ?#{ [0].finished }, t.position = ?#{ [0].position } where t.id = ?#{ [0].id } and t.user.id = ?#{ principal?.id }")
+    int editTask(Task task);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Task t where t.id = ?1 and t.user.id = ?#{ principal?.id }")
+    void deleteTaskById(Long id);
+
+    @Modifying
+    @Transactional
     @Query("delete from Task t where t.user.id = ?#{ principal?.id }")
     void deleteTasks();
 

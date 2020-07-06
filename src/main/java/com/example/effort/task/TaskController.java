@@ -31,8 +31,11 @@ public class TaskController {
     }
 
     @PutMapping("")
-    public Task editTask(@RequestBody Task task) {
-        return taskService.edit(task);
+    public void editTask(@RequestBody Task task) throws Exception {
+        int updated = taskService.edit(task);
+        if (updated < 1) {
+            throw new Exception("Could not update task");
+        }
     }
 
     @DeleteMapping("/{id}")

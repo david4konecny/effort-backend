@@ -7,7 +7,7 @@ public interface CategoryService {
     List<Category> getAll();
     void insertAll(List<Category> categories);
     Category add(Category category);
-    Category edit(Category category);
-    void deleteById(Long id);
+    int edit(Category category);
+    int deleteById(Long categoryId);
 
 }

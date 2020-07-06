@@ -28,18 +28,21 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category add(Category category) {
+        category.setId(null);
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category edit(Category category) {
-        return categoryRepository.save(category);
+    public int edit(Category category) {
+        return categoryRepository.editCategory(category);
     }
 
     @Transactional
     @Override
-    public void deleteById(Long id) {
-        timeRepository.deleteEntriesForCategory(id);
-        categoryRepository.deleteById(id);
+    public int deleteById(Long categoryId) {
+        if (!categoryRepository.isUserOwnerOfCategory(categoryId))
+            return 0;
+        timeRepository.deleteEntriesForCategory(categoryId);
+        return categoryRepository.deleteCategory(categoryId);
     }
 }

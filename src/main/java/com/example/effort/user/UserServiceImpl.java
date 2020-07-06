@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User insert(User newUser, boolean addSampleData) {
+        newUser.setId(null);
         User user = userRepository.save(newUser);
         if (addSampleData)
             sampleData.addSampleData(user);
