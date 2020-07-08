@@ -1,9 +1,12 @@
 package com.example.effort.time;
 
 import com.example.effort.user.User;
+import com.example.effort.util.DataNotValidException;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +41,9 @@ public class TimeController {
     }
 
     @PostMapping("/finished")
-    public TimeEntry insertFinished(@RequestBody FinishedTimeEntry timeEntry, Authentication authentication) {
+    public TimeEntry insertFinished(@RequestBody @Valid FinishedTimeEntry timeEntry, BindingResult br, Authentication authentication) {
+        if (br.hasErrors())
+            throw new DataNotValidException(br.getAllErrors());
         User user = (User) authentication.getPrincipal();
         timeEntry.setUser(user);
         return timeService.insertFinished(timeEntry);

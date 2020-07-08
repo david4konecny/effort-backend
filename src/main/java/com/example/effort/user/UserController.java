@@ -2,6 +2,7 @@ package com.example.effort.user;
 
 
 import com.example.effort.auth.AuthService;
+import com.example.effort.util.DataNotValidException;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class UserController {
     @PostMapping("")
     public User add(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            throw new UserNotValidException(bindingResult.getAllErrors());
+            throw new DataNotValidException(bindingResult.getAllErrors());
         else if (userService.usernameExists(userDto.getUsername()))
             throw new UsernameAlreadyExistsException(userDto.getUsername());
         else {

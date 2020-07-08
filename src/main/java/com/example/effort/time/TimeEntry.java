@@ -2,14 +2,19 @@ package com.example.effort.time;
 
 import com.example.effort.category.Category;
 import com.example.effort.user.User;
+import com.example.effort.util.validation.TimeConsistent;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@TimeConsistent
 public abstract class TimeEntry {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,7 +24,9 @@ public abstract class TimeEntry {
     private LocalDate date;
     @ManyToOne @JoinColumn(name = "category_id", foreignKey = @ForeignKey())
     private Category category;
+    @NotNull @Min(0) @Max(86399)
     private Integer startTime;
+    @NotNull @Min(0) @Max(86399)
     private Integer endTime;
     @Transient @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer duration;
