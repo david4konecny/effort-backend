@@ -1,14 +1,13 @@
 package com.example.effort.user;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class PasswordsDto {
     @NotNull @NotBlank
     private final String oldPassword;
-    @NotNull @NotBlank @Length(min = 5, max = 30, message = "Password must be between 5 and 30 characters long")
+    @NotNull @NotBlank @Size(min = 5, max = 30, message = "Password must be between 5 and 30 characters long")
     private final String newPassword;
 
     public PasswordsDto(String oldPassword, String newPassword) {
