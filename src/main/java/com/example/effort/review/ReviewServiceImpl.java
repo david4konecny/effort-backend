@@ -31,6 +31,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> insertAll(List<Review> reviews) {
+        return reviewRepository.saveAll(reviews);
+    }
+
+    @Override
     public int edit(Review review) {
         return reviewRepository.editReview(review);
     }

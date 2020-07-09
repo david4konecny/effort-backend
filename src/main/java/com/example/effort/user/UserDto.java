@@ -4,7 +4,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserDto {
-    private Long id;
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 15, message = "Username must be between 3 and 15 characters long")
     private String username;
@@ -16,14 +15,6 @@ public class UserDto {
     public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -52,7 +43,7 @@ public class UserDto {
 
     public User toUser() {
         User user = new User();
-        user.setId(id);
+        user.setId(null);
         user.setUsername(username);
         user.setPassword(password);
         return user;

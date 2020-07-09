@@ -8,6 +8,7 @@ public interface TimeService {
     List<FinishedTimeEntry> getFinishedByDate(String date);
     List<CurrentTimeEntry> getCurrent();
     TimeEntry insertFinished(FinishedTimeEntry timeEntry);
+    List<FinishedTimeEntry> insertAllFinished(List<FinishedTimeEntry> entries);
     TimeEntry insertCurrent(CurrentTimeEntry timeEntry);
     int editFinished(FinishedTimeEntry timeEntry);
     int editCurrent(CurrentTimeEntry timeEntry);

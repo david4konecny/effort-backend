@@ -44,6 +44,11 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    public List<FinishedTimeEntry> insertAllFinished(List<FinishedTimeEntry> entries) {
+        return finishedRepo.saveAll(entries);
+    }
+
+    @Override
     public TimeEntry insertCurrent(CurrentTimeEntry timeEntry) {
         timeEntry.setId(null);
         return currentRepo.save(timeEntry);

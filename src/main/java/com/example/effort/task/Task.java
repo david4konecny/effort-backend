@@ -2,8 +2,12 @@ package com.example.effort.task;
 
 import com.example.effort.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -14,17 +18,24 @@ public class Task {
     private User user;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @Length(min = 1, max = 255)
     private String description;
     private boolean finished;
+    @NotNull @DecimalMin("0.00")
     private Double position;
 
     public Task() {
     }
 
     public Task(User user, LocalDate date, String description, Double position) {
+        this(user, date, description, false, position);
+    }
+
+    public Task(User user, LocalDate date, String description, boolean finished, Double position) {
         this.user = user;
         this.date = date;
         this.description = description;
+        this.finished = finished;
         this.position = position;
     }
 

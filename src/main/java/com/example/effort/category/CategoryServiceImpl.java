@@ -22,8 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void insertAll(List<Category> categories) {
-        categoryRepository.saveAll(categories);
+    public List<Category> insertAll(List<Category> categories) {
+        return categoryRepository.saveAll(categories);
     }
 
     @Override
