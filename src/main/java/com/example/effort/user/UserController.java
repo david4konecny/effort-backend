@@ -2,9 +2,10 @@ package com.example.effort.user;
 
 
 import com.example.effort.auth.AuthService;
-import com.example.effort.util.DataNotValidException;
+import com.example.effort.util.exceptions.DataNotValidException;
+import com.example.effort.util.exceptions.UpdateFailedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
@@ -55,9 +56,9 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User add(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new DataNotValidException(bindingResult.getAllErrors());
+    public User add(@RequestBody @Valid UserDto userDto, Errors errors) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         else if (userService.usernameExists(userDto.getUsername()))
             throw new UsernameAlreadyExistsException(userDto.getUsername());
         else {
@@ -67,6 +68,8 @@ public class UserController {
 
     @PutMapping("/username")
     public void editUsername(@RequestBody String newUsername) {
+        if (newUsername == null || newUsername.isEmpty())
+            throw new UpdateFailedException("must provide a valid username");
         if (userService.usernameExists(newUsername))
             throw new UsernameAlreadyExistsException(newUsername);
         else
@@ -74,9 +77,11 @@ public class UserController {
     }
 
     @PutMapping("/password")
-    public void editPassword(@RequestBody Map<String, String> passwords, Authentication authentication) {
+    public void editPassword(@RequestBody @Valid PasswordsDto passwords, Errors errors, Authentication authentication) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         userService.editPassword(
-                passwords.get("oldPassword"), passwords.get("newPassword"), authentication.getName()
+                passwords.getOldPassword(), passwords.getNewPassword(), authentication.getName()
         );
     }
 

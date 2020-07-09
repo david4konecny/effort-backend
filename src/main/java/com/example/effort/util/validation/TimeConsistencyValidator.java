@@ -5,7 +5,7 @@ import com.example.effort.time.TimeEntry;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class TimeValidator implements ConstraintValidator<TimeConsistent, TimeEntry> {
+public class TimeConsistencyValidator implements ConstraintValidator<TimeConsistent, TimeEntry> {
 
     @Override
     public void initialize(TimeConsistent constraintAnnotation) {

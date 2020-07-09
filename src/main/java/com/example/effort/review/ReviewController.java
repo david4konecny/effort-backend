@@ -1,9 +1,13 @@
 package com.example.effort.review;
 
 import com.example.effort.user.User;
+import com.example.effort.util.exceptions.DataNotValidException;
+import com.example.effort.util.exceptions.UpdateFailedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +28,9 @@ public class ReviewController {
     }
 
     @PostMapping("")
-    public Review insert(@RequestBody Review review, Authentication authentication) {
+    public Review insert(@RequestBody @Valid Review review, Errors errors, Authentication authentication) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         User user = (User) authentication.getPrincipal();
         review.setUser(user);
         review.setId(null);
@@ -32,17 +38,19 @@ public class ReviewController {
     }
 
     @PutMapping("")
-    public void edit(@RequestBody Review review) throws Exception {
+    public void edit(@RequestBody @Valid Review review, Errors errors) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         int updated = reviewService.edit(review);
         if (updated < 1)
-            throw new Exception("Could not update review");
+            throw new UpdateFailedException("Could not update review");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) throws Exception {
+    public void deleteById(@PathVariable Long id) {
         int deleted = reviewService.deleteById(id);
         if (deleted < 1)
-            throw new Exception("Could not delete review");
+            throw new UpdateFailedException("Could not delete review");
     }
 
 }

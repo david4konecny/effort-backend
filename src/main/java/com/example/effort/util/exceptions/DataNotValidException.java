@@ -1,4 +1,4 @@
-package com.example.effort.util;
+package com.example.effort.util.exceptions;
 
 import org.springframework.validation.ObjectError;
 

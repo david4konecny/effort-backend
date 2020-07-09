@@ -1,9 +1,13 @@
 package com.example.effort.task;
 
 import com.example.effort.user.User;
+import com.example.effort.util.exceptions.DataNotValidException;
+import com.example.effort.util.exceptions.UpdateFailedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,17 +28,21 @@ public class TaskController {
     }
 
     @PostMapping("")
-    public Task addTask(@RequestBody Task task, Authentication authentication) {
+    public Task addTask(@RequestBody @Valid Task task, Errors errors, Authentication authentication) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         User user = (User) authentication.getPrincipal();
         task.setUser(user);
         return taskService.add(task);
     }
 
     @PutMapping("")
-    public void editTask(@RequestBody Task task) throws Exception {
+    public void editTask(@RequestBody @Valid Task task, Errors errors) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         int updated = taskService.edit(task);
         if (updated < 1) {
-            throw new Exception("Could not update task");
+            throw new UpdateFailedException("Could not update task");
         }
     }
 

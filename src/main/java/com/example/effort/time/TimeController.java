@@ -1,9 +1,10 @@
 package com.example.effort.time;
 
 import com.example.effort.user.User;
-import com.example.effort.util.DataNotValidException;
+import com.example.effort.util.exceptions.DataNotValidException;
+import com.example.effort.util.exceptions.UpdateFailedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +30,9 @@ public class TimeController {
     }
 
     @PostMapping("/current")
-    public TimeEntry insertCurrent(@RequestBody CurrentTimeEntry timeEntry, Authentication authentication) {
+    public TimeEntry insertCurrent(@RequestBody @Valid CurrentTimeEntry timeEntry, Errors errors, Authentication authentication) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         User user = (User) authentication.getPrincipal();
         timeEntry.setUser(user);
         return timeService.insertCurrent(timeEntry);
@@ -41,40 +44,44 @@ public class TimeController {
     }
 
     @PostMapping("/finished")
-    public TimeEntry insertFinished(@RequestBody @Valid FinishedTimeEntry timeEntry, BindingResult br, Authentication authentication) {
-        if (br.hasErrors())
-            throw new DataNotValidException(br.getAllErrors());
+    public TimeEntry insertFinished(@RequestBody @Valid FinishedTimeEntry timeEntry, Errors errors, Authentication authentication) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         User user = (User) authentication.getPrincipal();
         timeEntry.setUser(user);
         return timeService.insertFinished(timeEntry);
     }
 
     @PutMapping("/current")
-    public void editCurrent(@RequestBody CurrentTimeEntry timeEntry) throws Exception {
+    public void editCurrent(@RequestBody @Valid CurrentTimeEntry timeEntry, Errors errors) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         int updated = timeService.editCurrent(timeEntry);
         if (updated < 1)
-            throw new Exception("Could not update entry");
+            throw new UpdateFailedException("Could not update entry");
     }
 
     @PutMapping("/finished")
-    public void editFinished(@RequestBody FinishedTimeEntry timeEntry) throws Exception {
+    public void editFinished(@RequestBody @Valid FinishedTimeEntry timeEntry, Errors errors) {
+        if (errors.hasErrors())
+            throw new DataNotValidException(errors.getAllErrors());
         int updated = timeService.editFinished(timeEntry);
         if (updated < 1)
-            throw new Exception("Could not update entry");
+            throw new UpdateFailedException("Could not update entry");
     }
 
     @DeleteMapping("/current/{id}")
-    public void deleteCurrent(@PathVariable Long id) throws Exception {
+    public void deleteCurrent(@PathVariable Long id) {
         int deleted = timeService.deleteCurrentById(id);
         if (deleted < 1)
-            throw new Exception("Could not update entry");
+            throw new UpdateFailedException("Could not update entry");
     }
 
     @DeleteMapping("/finished/{id}")
-    public void deleteFinished(@PathVariable Long id) throws Exception {
+    public void deleteFinished(@PathVariable Long id) {
         int deleted = timeService.deleteFinishedById(id);
         if (deleted < 1)
-            throw new Exception("Could not delete entry");
+            throw new UpdateFailedException("Could not delete entry");
     }
 
     @GetMapping("/total")
