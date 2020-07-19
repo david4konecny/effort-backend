@@ -26,22 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/users").permitAll()
-                .antMatchers("/api/users/**").authenticated()
-                .and()
-                .httpBasic();
-
-        http
-                .cors().disable()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                .antMatchers("/**").authenticated()
+                    .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                    .antMatchers(HttpMethod.POST,"/api/users").permitAll()
+                    .antMatchers("/**").authenticated()
                 .and()
-                .addFilter(new JWTFilter(authenticationManager()));
+                    .httpBasic()
+                .and()
+                    .addFilter(new JWTFilter(authenticationManager()));
     }
 
     @Override
