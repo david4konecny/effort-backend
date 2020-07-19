@@ -16,10 +16,9 @@ import java.util.Date;
 
 @Service
 public class JWTService {
-
-    RSAPrivateKey privateKey;
-    RSAPublicKey publicKey;
-    int expirationTime = 1800000;
+    private static final int ONE_DAY_IN_MILLIS = 86_400_000;
+    private RSAPrivateKey privateKey;
+    private RSAPublicKey publicKey;
 
     @PostConstruct
     private void initKeys() throws NoSuchAlgorithmException {
@@ -34,7 +33,7 @@ public class JWTService {
         return JWT.create()
                 .withClaim("id", id)
                 .withClaim("username", username)
-                .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
+                .withExpiresAt(new Date(System.currentTimeMillis() + ONE_DAY_IN_MILLIS))
                 .sign(Algorithm.RSA256(publicKey, privateKey));
     }
 
